@@ -13,7 +13,7 @@ def gather_data():
 
 
 try:
-    print(parse.parse_query("smite NOT league of legends"))
+    print(parse.parse_query("smite NOT leagueoflegends", 0))
 except parse.ProcessingException as e:
     print(str(e))
 

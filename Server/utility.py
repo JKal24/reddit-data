@@ -1,3 +1,5 @@
+image_types = ['.jpg', '.png', '.jpeg', '.bmp', '.gif', '.mp4', '.tiff', 'svg']
+
 def increment_entry(name_dict, entry):
     if entry not in name_dict:
         name_dict[entry] = 1

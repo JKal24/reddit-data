@@ -1,17 +1,20 @@
 import reddit
+from enum import Enum
+
+import utility
 from utility import increment_entry, average
 
 all_subreddits = reddit.reddit.subreddit("all")
 
 
-def parse_query(query):
+def parse_query(query, parse_type):
     names = {}
     for content in all_subreddits.search(query):
         increment_entry(names, content.subreddit.display_name)
-    return parse_subreddit(names, query)
+    return parse_subreddit(names, query, parse_type)
 
 
-def parse_subreddit(names, query):
+def parse_subreddit(names, query, parse_type):
     names = dict(sorted(names.items(), key=lambda item: item[1], reverse=True))
     top_ten = 10
     top_subreddits = []
@@ -33,21 +36,65 @@ def parse_subreddit(names, query):
             average_likability = average(average_likability, subreddit_content.upvote_ratio, threads_seen)
             threads_seen += 1
 
-        for subreddit_content in reddit.reddit.subreddit(key).search(query):
-            subreddit_score = subreddit_content.score
-            subreddit_comments = subreddit_content.num_comments
-            subreddit_likability = subreddit_content.upvote_ratio
+        if parse_type == ParseType.IMAGE:
+            for subreddit_content in reddit.reddit.subreddit(key).search(query):
+                subreddit_score = subreddit_content.score
+                subreddit_comments = subreddit_content.num_comments
+                subreddit_likability = subreddit_content.upvote_ratio
+                subreddit_text = subreddit_content.selftext
 
-            if (
-              subreddit_comments > average_comments and
-              subreddit_score > average_score and
-              subreddit_likability > average_likability
-            ):
-                filter_posts.append({
-                    "id": subreddit_content.id,
-                    "upvotes": subreddit_score,
-                    "comments": subreddit_comments
-                })
+                if (
+                        subreddit_comments > average_comments and
+                        subreddit_score > average_score and
+                        subreddit_likability > average_likability and
+                        subreddit_text == ''
+                ):
+                    if any(subreddit_url.endswith(extension) for extension in utility.image_types):
+                        filter_posts.append({
+                            "id": subreddit_content.id,
+                            "upvotes": subreddit_score,
+                            "comments": subreddit_comments
+                        })
+
+        elif parse_type == ParseType.MEDIA:
+            # check if url == self-text?
+            for subreddit_content in reddit.reddit.subreddit(key).search(query):
+                subreddit_score = subreddit_content.score
+                subreddit_comments = subreddit_content.num_comments
+                subreddit_likability = subreddit_content.upvote_ratio
+                subreddit_text = subreddit_content.selftext
+                subreddit_url = subreddit_content.url
+
+                if (
+                        subreddit_comments > average_comments and
+                        subreddit_score > average_score and
+                        subreddit_likability > average_likability and
+                        subreddit_text == '' and
+                        subreddit_content.permalink not in subreddit_url and
+                        subreddit_url != ''
+                ):
+                    filter_posts.append({
+                        "id": subreddit_content.id,
+                        "upvotes": subreddit_score,
+                        "comments": subreddit_comments
+                    })
+
+        else:
+            for subreddit_content in reddit.reddit.subreddit(key).search(query):
+                subreddit_score = subreddit_content.score
+                subreddit_comments = subreddit_content.num_comments
+                subreddit_likability = subreddit_content.upvote_ratio
+
+                if (
+                        subreddit_comments > average_comments and
+                        subreddit_score > average_score and
+                        subreddit_likability > average_likability
+                ):
+                    filter_posts.append({
+                        "id": subreddit_content.id,
+                        "upvotes": subreddit_score,
+                        "comments": subreddit_comments
+                    })
 
         top_subreddits.append(key)
         top_ten -= 1
@@ -59,11 +106,12 @@ def parse_subreddit(names, query):
     for top in range(25):
         submission = reddit.reddit.submission(filter_posts[top]["id"])
         top_posts.append({
-          "author": submission.author,
-          "name": submission.title,
-          "url": submission.shortlink,
-          "text": submission.selftext,
-          "attached_url": submission.url
+            "author": submission.author,
+            "name": submission.title,
+            "url": submission.shortlink,
+            "text": submission.selftext,
+            "attached_url": submission.url,
+            "time": submission.created_utc
         })
 
     return {
@@ -72,13 +120,10 @@ def parse_subreddit(names, query):
     }
 
 
-def parse_images():
-    pass
-
-
-def parse_media():
-    pass
-
-
 class ProcessingException(Exception):
     pass
+
+
+class ParseType(Enum):
+    IMAGE=1,
+    MEDIA=2

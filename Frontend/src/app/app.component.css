@@ -1,0 +1,9 @@
+.container {
+    background-color: aliceblue;
+}
+
+.header {
+    text-align: center;
+    white-space: nowrap;
+    width: 100vw;
+}

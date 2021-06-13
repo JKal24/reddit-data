@@ -1,0 +1,15 @@
+<mat-form-field>
+    <mat-label>Search Topics</mat-label>
+    <mat-chip-list #topicList aria-label="Topic selection">
+        <mat-chip *ngFor="let topic of topicList" [selectable]="selectable"
+            [removable]="removable" (removed)="remove(fruit)">
+                {{topic}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Add Topic..."
+            [matChipInputFor]="topicList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+</mat-form-field>
