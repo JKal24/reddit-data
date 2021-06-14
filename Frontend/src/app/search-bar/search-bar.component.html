@@ -1,15 +1,40 @@
-<mat-form-field>
-    <mat-label>Search Topics</mat-label>
-    <mat-chip-list #topicList aria-label="Topic selection">
-        <mat-chip *ngFor="let topic of topicList" [selectable]="selectable"
-            [removable]="removable" (removed)="remove(fruit)">
-                {{topic}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Add Topic..."
-            [matChipInputFor]="topicList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-</mat-form-field>
+<div class="search-container">
+    <mat-form-field class="topics-form">
+        <mat-label>Search Topics</mat-label>
+        <mat-chip-list #chipList aria-label="Topic selection">
+            <mat-chip *ngFor="let topic of topicList" class="topic-element">
+                    {{topic}}
+                <button mat-icon-button class="close-button" (click)="remove(topic)">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip>
+            <input placeholder="Add Topic..."
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)"
+                class="input-bar">
+            <button mat-icon-button (click)="search()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-chip-list>
+    </mat-form-field>
+    
+    <div class="advanced-search" *ngIf="advancedDisplayable; else advancedButtonDisplay">
+        <div class="advanced-title">
+            <h3 class="advanced-title-contents">Advanced Search</h3>
+            <button mat-icon-button (click)="closeAdvancedSearch()" class="advanced-title-contents">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <app-advanced></app-advanced>
+    </div>
+
+    <ng-template #advancedButtonDisplay>
+        <button mat-flat-button (click)="showAdvancedSearch()" class="advanced-button" >Advanced
+            <mat-icon>settings</mat-icon>
+        </button>
+    </ng-template>
+</div>
+
+

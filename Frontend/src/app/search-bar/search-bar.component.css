@@ -1,0 +1,52 @@
+.search-container {
+    display: flex; 
+    width: 55vw;
+    align-items: flex-end;
+    margin: auto auto;
+    flex-flow: nowrap column;
+}
+
+.topics-form {
+    flex: 1;
+    width: 100%;
+}
+
+.close-button {
+    width: fit-content;
+    height: fit-content;
+    padding: 0.1em;
+}
+
+.topic-element {
+    font-size: 1rem;
+}
+
+.input-bar {
+    display:inline-block;
+}
+
+.advanced-button {
+    width: 20%;
+    flex: 1;
+    margin-bottom: 0.5rem
+}
+
+.advanced-search, app-advanced {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.advanced-title {
+    display: flex;
+    flex: 100%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.advanced-title-contents {
+    font-size:20px;
+    line-height:48px;
+}

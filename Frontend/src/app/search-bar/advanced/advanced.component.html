@@ -1,1 +1,16 @@
-<p>advanced works!</p>
+<mat-form-field class="not-topics-form">
+    <mat-label>Exclude Topics</mat-label>
+    <mat-chip-list #chipList aria-label="Topic deselection">
+        <mat-chip *ngFor="let notTopic of notTopicList" class="not-topic-element">
+            {{notTopic}}
+            <button mat-icon-button class="close-button" (click)="remove(notTopic)">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip>
+        <input placeholder="Remove Topic..." 
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+</mat-form-field>

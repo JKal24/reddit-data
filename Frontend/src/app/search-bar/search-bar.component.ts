@@ -8,10 +8,8 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
-  visible = true;
-  selectable = true;
-  removable = true;
   addOnBlur = true;
+  advancedDisplayable = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   topicList: String[] = [];
 
@@ -35,6 +33,18 @@ export class SearchBarComponent implements OnInit {
     if (index >= 0) {
       this.topicList.splice(index, 1);
     }
+  }
+
+  search(): void {
+
+  }
+
+  showAdvancedSearch(): void {
+    this.advancedDisplayable = true;
+  }
+
+  closeAdvancedSearch(): void {
+    this.advancedDisplayable = false;
   }
 
 }
