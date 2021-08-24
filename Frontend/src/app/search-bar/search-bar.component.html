@@ -1,6 +1,6 @@
 <div class="search-container">
     <mat-form-field class="topics-form">
-        <mat-label>Search Topics</mat-label>
+        <mat-label>Reddit Search</mat-label>
         <mat-chip-list #chipList aria-label="Topic selection">
             <mat-chip *ngFor="let topic of topicList" class="topic-element">
                     {{topic}}
@@ -8,7 +8,7 @@
                     <mat-icon>cancel</mat-icon>
                 </button>
             </mat-chip>
-            <input placeholder="Add Topic..."
+            <input placeholder="Search..."
                 [matChipInputFor]="chipList"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                 [matChipInputAddOnBlur]="addOnBlur"

@@ -1,4 +1,4 @@
-<mat-form-field class="not-topics-form">
+<mat-form-field class="exclude-topics-form">
     <mat-label>Exclude Topics</mat-label>
     <mat-chip-list #chipList aria-label="Topic deselection">
         <mat-chip *ngFor="let notTopic of notTopicList" class="not-topic-element">
@@ -7,10 +7,39 @@
                 <mat-icon>cancel</mat-icon>
             </button>
         </mat-chip>
-        <input placeholder="Remove Topic..." 
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
-            [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)">
+        <input placeholder="Remove..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
 </mat-form-field>
+<div class="optional-filters">
+    <div>
+        Number of Entries
+    </div>
+    <div>
+        <input type="text" placeholder="...100, 25, 10, 0>">
+    </div>
+</div>
+<div class="optional-filters">
+    <div>
+        Number of Comments
+    </div>
+    <div>
+        <input type="text" placeholder="...100, 25, 10, 0>">
+    </div>
+</div>
+<div class="optional-filters">
+    <div>
+        Number of Upvotes
+    </div>
+    <div>
+        <input type="text" placeholder="...100, 25, 10, 0>">
+    </div>
+</div>
+<div class="optional-filters">
+    <div>
+        NSFW
+    </div>
+    <div>
+        <input type="checkbox">
+    </div>
+</div>
