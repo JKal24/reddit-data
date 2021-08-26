@@ -1,45 +1,58 @@
-<mat-form-field class="exclude-topics-form">
-    <mat-label>Exclude Topics</mat-label>
-    <mat-chip-list #chipList aria-label="Topic deselection">
-        <mat-chip *ngFor="let notTopic of notTopicList" class="not-topic-element">
-            {{notTopic}}
-            <button mat-icon-button class="close-button" (click)="remove(notTopic)">
-                <mat-icon>cancel</mat-icon>
-            </button>
-        </mat-chip>
-        <input placeholder="Remove..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-</mat-form-field>
-<div class="optional-filters">
-    <div>
-        Number of Entries
-    </div>
-    <div>
-        <input type="text" placeholder="...100, 25, 10, 0>">
-    </div>
+<div class="row">
+    <mat-form-field class="exclude-topics-form">
+        <mat-label>Exclude Topics</mat-label>
+        <mat-chip-list #chipList aria-label="Topic deselection">
+            <mat-chip *ngFor="let notTopic of notTopicList" class="not-topic-element">
+                {{notTopic}}
+                <button mat-icon-button class="close-button" (click)="remove(notTopic)">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip>
+            <input placeholder="Remove..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+    </mat-form-field>
 </div>
-<div class="optional-filters">
-    <div>
-        Number of Comments
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="row justify-content-between filter">
+            <div class="col-lg-4">
+                Minimum Number of Comments
+            </div>
+            <div class="col-lg-4">
+                <input type="text" placeholder="Enter number...">
+            </div>
+        </div>
+        <div class="row justify-content-between filter">
+            <div class="col-lg-4">
+                Minimum Number of Upvotes
+            </div>
+            <div class="col-lg-4">
+                <input type="text" placeholder="Enter number...">
+            </div>
+        </div>
     </div>
-    <div>
-        <input type="text" placeholder="...100, 25, 10, 0>">
+    
+    <div class="col-sm-6">
+        <div class="row justify-content-between filter">
+            <div class="col-lg-4" style="display: flex; align-items: center;">
+                Number of Entries
+            </div>
+            <div class="col-lg-4">
+                <div class="btn-group" role="group">
+                    <button class="btn" *ngFor="let entryLimit of entriesPerPage" (click)="changeLimit(entryLimit)">{{entryLimit}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-between filter">
+            <div class="col-lg-4">
+                NSFW
+            </div>
+            <div class="col-lg-2">
+                <input type="checkbox">
+            </div>
+        </div>
     </div>
-</div>
-<div class="optional-filters">
-    <div>
-        Number of Upvotes
-    </div>
-    <div>
-        <input type="text" placeholder="...100, 25, 10, 0>">
-    </div>
-</div>
-<div class="optional-filters">
-    <div>
-        NSFW
-    </div>
-    <div>
-        <input type="checkbox">
-    </div>
+    
 </div>

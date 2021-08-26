@@ -1,8 +1,6 @@
 .search-container {
     display: flex; 
-    width: 55vw;
     align-items: flex-end;
-    margin: auto auto;
     flex-flow: nowrap column;
 }
 

@@ -9,7 +9,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 })
 export class SearchBarComponent implements OnInit {
   addOnBlur = true;
-  advancedDisplayable = true;
+  advancedDisplayable = false;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   topicList: String[] = [];
 

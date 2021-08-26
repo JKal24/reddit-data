@@ -115,8 +115,8 @@ def parse_subreddit(names, query, parse_type):
         })
 
     return {
-      'top_subreddits': top_subreddits,
-      'top_posts': top_posts
+        'top_subreddits': top_subreddits,
+        'top_posts': top_posts
     }
 
 
@@ -125,5 +125,5 @@ class ProcessingException(Exception):
 
 
 class ParseType(Enum):
-    IMAGE=1,
-    MEDIA=2
+    IMAGE = 1,
+    MEDIA = 2

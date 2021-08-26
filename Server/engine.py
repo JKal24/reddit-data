@@ -11,10 +11,10 @@ def gather_data():
     query = request.args.get("query")
     return jsonify()
 
-#
-# try:
-#     print(parse.parse_query("smite NOT leagueoflegends", 0))
-# except parse.ProcessingException as e:
-#     print(str(e))
+
+try:
+    print(parse.parse_query("smite NOT leagueoflegends", 0))
+except parse.ProcessingException as e:
+    print(str(e))
 
 

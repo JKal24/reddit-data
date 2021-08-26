@@ -7,33 +7,32 @@
     margin-left: 0.2rem;
 }
 
-.optional-filters {
-    display: flex;
-    flex-wrap: wrap;
-    flex-flow: row;
-    justify-content: space-between;
-    margin: 1rem 0px 0px 0px;
-    padding: 0px 20% 0px 20%;
+.filter {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 input {
     text-align: end;
 }
 
-@media (max-width: 1000px) {
-    .optional-filters {
-        padding: 0px 15% 0px 15%;
-    }
+@media (max-width: 1200px) {
+
 }
 
-@media (max-width: 600px) {
-    .optional-filters {
-        padding: 0px 10% 0px 10%;
-    }
+@media (max-width: 992px) {
+
 }
 
-@media (max-width: 400px) {
-    .optional-filters {
-        padding: 0px 5% 0px 5%;
+@media (max-width: 768px) {
+
+    .filter {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
     }
+
+}
+
+@media (max-width: 576px) {
+
 }

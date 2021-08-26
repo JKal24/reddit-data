@@ -11,6 +11,7 @@ export class AdvancedComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   notTopicList: String[] = [];
+  entriesPerPage: Number[] = [10, 25, 50, 100];
 
   constructor() { }
 
