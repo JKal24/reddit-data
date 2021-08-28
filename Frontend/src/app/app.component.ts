@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Result } from './result.model';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Frontend';
-  products = ["Something", "Another thing", "yes"];
+  results: Result[] = [];
+
+  constructor() {
+  }
+  
+  storeResults(result: Result[]) : void {
+    this.results = result;
+  }
+
 }

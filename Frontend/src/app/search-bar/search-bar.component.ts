@@ -1,6 +1,7 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Result } from '../result.model';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,6 +13,7 @@ export class SearchBarComponent implements OnInit {
   advancedDisplayable = false;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   topicList: String[] = [];
+  @Output() sendResults = new EventEmitter<Result[]>();
 
   constructor() { }
 
@@ -23,6 +25,8 @@ export class SearchBarComponent implements OnInit {
 
     if (value) {
       this.topicList.push(value);
+    } else {
+      this.search();
     }
     event.chipInput!.clear();
   }
@@ -36,7 +40,15 @@ export class SearchBarComponent implements OnInit {
   }
 
   search(): void {
+    // Send request to backend - will configure when design is done
 
+    const results : Result[] = [];
+    let i = this.topicList.length;
+    for (let j = 0; j < i; j++) {
+      results.push(new Result(this.topicList[j], this.topicList[j], j, i));
+    }
+
+    this.sendResults.emit(results);
   }
 
   showAdvancedSearch(): void {

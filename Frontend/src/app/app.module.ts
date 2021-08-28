@@ -12,13 +12,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { SearchItemComponent } from './search-results/search-item/search-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
     AdvancedComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchResultsComponent,
+    SearchItemComponent
   ],
   imports: [
     BrowserModule,
