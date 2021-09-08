@@ -25,8 +25,6 @@ export class SearchBarComponent implements OnInit {
 
     if (value) {
       this.topicList.push(value);
-    } else {
-      this.search();
     }
     event.chipInput!.clear();
   }
@@ -41,7 +39,6 @@ export class SearchBarComponent implements OnInit {
 
   search(): void {
     // Send request to backend - will configure when design is done
-
     const results : Result[] = [];
     let i = this.topicList.length;
     for (let j = 0; j < i; j++) {

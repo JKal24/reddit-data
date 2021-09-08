@@ -37,17 +37,17 @@
     <div class="col-sm-6">
         <div class="row justify-content-between filter">
             <div class="col-lg-4" style="display: flex; align-items: center;">
-                Number of Entries
+                Number of Entries Searched
             </div>
             <div class="col-lg-4">
                 <div class="btn-group" role="group">
-                    <button class="btn" *ngFor="let entryLimit of entriesPerPage" (click)="changeLimit(entryLimit)">{{entryLimit}}</button>
+                    <button class="btn btn-secondary btn-select" *ngFor="let entryLimit of entriesSearched" (click)="changeLimit(entryLimit)">{{entryLimit}}</button>
                 </div>
             </div>
         </div>
         <div class="row justify-content-between filter">
             <div class="col-lg-4">
-                NSFW
+                Include NSFW
             </div>
             <div class="col-lg-2">
                 <input type="checkbox">

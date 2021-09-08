@@ -1,6 +1,5 @@
 <div class="app">
     <app-header></app-header>
-    <h1 class="header">Reddit Data Search</h1>
     <hr>
     <app-search-bar (sendResults)="storeResults($event)"></app-search-bar>
     <app-search-results *ngFor="let searchResult of results" [result]="searchResult">

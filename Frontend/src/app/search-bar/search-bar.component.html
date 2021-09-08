@@ -8,9 +8,9 @@
                     <mat-icon>cancel</mat-icon>
                 </button>
             </mat-chip>
-            <input placeholder="Search..." [matChipInputFor]="chipList"
+            <input placeholder="Search now..." [matChipInputFor]="chipList"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event)" class="input-bar">
+                (matChipInputTokenEnd)="add($event)" class="input-bar" #searchElements>
             <button mat-icon-button (click)="search()">
                 <mat-icon>search</mat-icon>
             </button>

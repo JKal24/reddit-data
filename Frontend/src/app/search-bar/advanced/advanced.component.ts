@@ -11,7 +11,8 @@ export class AdvancedComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   notTopicList: String[] = [];
-  entriesPerPage: Number[] = [10, 25, 50, 100];
+  entriesSearched = [10, 25, 50, 100];
+  currentEntryLimit = 10;
 
   constructor() { }
 
@@ -33,6 +34,10 @@ export class AdvancedComponent implements OnInit {
     if (index >= 0) {
       this.notTopicList.splice(index, 1);
     }
+  }
+
+  changeLimit(entryLimit: number) {
+    this.currentEntryLimit = entryLimit;
   }
 
 }

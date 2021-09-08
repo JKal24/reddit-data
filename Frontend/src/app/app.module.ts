@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchItemComponent } from './search-results/search-item/search-item.component';
+import { ButtonSelectDirective } from './search-bar/advanced/button-select.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SearchItemComponent } from './search-results/search-item/search-item.co
     AdvancedComponent,
     HeaderComponent,
     SearchResultsComponent,
-    SearchItemComponent
+    SearchItemComponent,
+    ButtonSelectDirective
   ],
   imports: [
     BrowserModule,
