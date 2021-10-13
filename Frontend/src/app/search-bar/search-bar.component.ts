@@ -13,6 +13,7 @@ export class SearchBarComponent implements OnInit {
   advancedDisplayable = false;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   topicList: String[] = [];
+  advancedAttributes = {commentLimit : Infinity, upvoteLimit : Infinity, allowNSFW : false, entriesLimit : 25};
   @Output() sendResults = new EventEmitter<Result[]>();
 
   constructor() { }
@@ -54,6 +55,22 @@ export class SearchBarComponent implements OnInit {
 
   closeAdvancedSearch(): void {
     this.advancedDisplayable = false;
+  }
+
+  storeUpvoteLimit(upvoteLimit : number) : void {
+    this.advancedAttributes.upvoteLimit = upvoteLimit;
+  }
+
+  storeCommentLimit(commentLimit : number) : void {
+    this.advancedAttributes.commentLimit = commentLimit;
+  }
+
+  storeNSFWFlag(NSFWflag : boolean) : void {
+    this.advancedAttributes.allowNSFW = NSFWflag;
+  }
+
+  storeEntryLimit(entriesLimit : number) : void {
+    this.advancedAttributes.entriesLimit = entriesLimit;
   }
 
 }

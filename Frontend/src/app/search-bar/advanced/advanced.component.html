@@ -21,7 +21,7 @@
                 Minimum Number of Comments
             </div>
             <div class="col-lg-4">
-                <input type="text" placeholder="Enter number...">
+                <input type="text" placeholder="Enter number..." (keyup)="changeCommentLimit($event)">
             </div>
         </div>
         <div class="row justify-content-between filter">
@@ -29,7 +29,7 @@
                 Minimum Number of Upvotes
             </div>
             <div class="col-lg-4">
-                <input type="text" placeholder="Enter number...">
+                <input type="text" placeholder="Enter number..." (keyup)="changeUpvoteLimit($event)">
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="btn-group" role="group">
-                    <button class="btn btn-secondary btn-select" *ngFor="let entryLimit of entriesSearched" (click)="changeLimit(entryLimit)">{{entryLimit}}</button>
+                    <button class="btn btn-secondary btn-select" *ngFor="let entryLimit of entriesSearched" (click)="changeEntryLimit(entryLimit)">{{entryLimit}}</button>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 Include NSFW
             </div>
             <div class="col-lg-2">
-                <input type="checkbox">
+                <input type="checkbox" (change)="changeNSFW()">
             </div>
         </div>
     </div>

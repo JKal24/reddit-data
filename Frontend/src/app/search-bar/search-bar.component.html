@@ -24,7 +24,8 @@
                 <mat-icon>close</mat-icon>
             </button>
         </div>
-        <app-advanced></app-advanced>
+        <app-advanced (sendUpvoteLimit)="storeUpvoteLimit($event)" (sendCommentLimit)="storeCommentLimit($event)"
+        (sendNSFW)="storeNSFWFlag($event)" (sendEntryLimit)="storeEntryLimit($event)"></app-advanced>
     </div>
 
     <ng-template #advancedButtonDisplay>

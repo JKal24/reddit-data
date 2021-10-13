@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
@@ -10,14 +10,19 @@ import { MatChipInputEvent } from '@angular/material/chips';
 export class AdvancedComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
   notTopicList: String[] = [];
   entriesSearched = [10, 25, 50, 100];
-  currentEntryLimit = 10;
+  NSFWflag : boolean = false;
+  
+  @Output() sendUpvoteLimit : EventEmitter<number> = new EventEmitter<number>();
+  @Output() sendCommentLimit : EventEmitter<number> = new EventEmitter<number>();
+  @Output() sendNSFW : EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() sendEntryLimit : EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -36,8 +41,20 @@ export class AdvancedComponent implements OnInit {
     }
   }
 
-  changeLimit(entryLimit: number) {
-    this.currentEntryLimit = entryLimit;
+  changeUpvoteLimit(event: KeyboardEvent) {
+    this.sendUpvoteLimit.emit(parseInt((event.target as HTMLInputElement).value));
   }
 
+  changeCommentLimit(event: KeyboardEvent) {
+    this.sendCommentLimit.emit(parseInt((event.target as HTMLInputElement).value));
+  }
+
+  changeNSFW() {
+    this.NSFWflag = !this.NSFWflag;
+    this.sendNSFW.emit(this.NSFWflag);
+  }
+
+  changeEntryLimit(entryLimit: number) {
+    this.sendEntryLimit.emit(entryLimit);
+  }
 }
