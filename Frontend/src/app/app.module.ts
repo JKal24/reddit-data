@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchItemComponent } from './search-results/search-item/search-item.component';
 import { ButtonSelectDirective } from './search-bar/advanced/button-select.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ButtonSelectDirective } from './search-bar/advanced/button-select.direc
     MatChipsModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

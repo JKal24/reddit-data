@@ -16,13 +16,13 @@ def parse_query(query, parse_type):
 
 def parse_subreddit(names, query, parse_type):
     names = dict(sorted(names.items(), key=lambda item: item[1], reverse=True))
-    top_ten = 10
+    top_five = 5
     top_subreddits = []
     top_posts = []
     filter_posts = []
 
     for key, value in names.items():
-        if value == 1 or top_ten <= 0:
+        if value == 1 or top_five <= 0:
             break
 
         average_score = 0
@@ -97,7 +97,7 @@ def parse_subreddit(names, query, parse_type):
                     })
 
         top_subreddits.append(key)
-        top_ten -= 1
+        top_five -= 1
 
     if len(filter_posts) == 0:
         raise ProcessingException("Found no data for the given query")
@@ -106,8 +106,9 @@ def parse_subreddit(names, query, parse_type):
     for top in range(25):
         submission = reddit.reddit.submission(filter_posts[top]["id"])
         top_posts.append({
-            "author": submission.author,
+            "author": str(submission.author),
             "name": submission.title,
+            "score": submission.score,
             "url": submission.shortlink,
             "text": submission.selftext,
             "attached_url": submission.url,

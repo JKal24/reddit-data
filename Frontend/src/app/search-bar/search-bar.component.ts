@@ -1,4 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Result } from '../result.model';
@@ -16,7 +17,7 @@ export class SearchBarComponent implements OnInit {
   advancedAttributes = {commentLimit : Infinity, upvoteLimit : Infinity, allowNSFW : false, entriesLimit : 25};
   @Output() sendResults = new EventEmitter<Result[]>();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -40,11 +41,16 @@ export class SearchBarComponent implements OnInit {
 
   search(): void {
     // Send request to backend - will configure when design is done
+    const query = this.buildQuery(this.topicList);
+    this.http.get('http://127.0.0.1:5000/search/' + query).subscribe(
+      data => {
+        console.log(data);
+      }
+    )
+
+
+
     const results : Result[] = [];
-    let i = this.topicList.length;
-    for (let j = 0; j < i; j++) {
-      results.push(new Result(this.topicList[j], this.topicList[j], j, i));
-    }
 
     this.sendResults.emit(results);
   }
@@ -71,6 +77,17 @@ export class SearchBarComponent implements OnInit {
 
   storeEntryLimit(entriesLimit : number) : void {
     this.advancedAttributes.entriesLimit = entriesLimit;
+  }
+
+  buildQuery(topicList: String[]) {
+    let queryString = '';
+
+    let i;
+    for (i = 0; i < topicList.length - 1; i++) {
+      queryString += topicList[i];
+      queryString += ' AND ';
+    }
+    return queryString + topicList[i];
   }
 
 }
