@@ -19,14 +19,3 @@ def gather_data(query):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# try:
-#     data = parse.parse_query("smite NOT leagueoflegends", 0)
-#     with app.app_context():
-#         jsonData = jsonify(data)
-#         print(jsonData)
-#     print(data)
-# except parse.ProcessingException as e:
-#     print(str(e))
-
-

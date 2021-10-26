@@ -2,7 +2,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Result } from '../result.model';
+import { Result } from './result.model';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-search-bar',
@@ -10,12 +11,11 @@ import { Result } from '../result.model';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
-  addOnBlur = true;
   advancedDisplayable = false;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   topicList: String[] = [];
   advancedAttributes = {commentLimit : Infinity, upvoteLimit : Infinity, allowNSFW : false, entriesLimit : 25};
-  @Output() sendResults = new EventEmitter<Result[]>();
+  @Output() sendResults = new EventEmitter<Result>();
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +27,8 @@ export class SearchBarComponent implements OnInit {
 
     if (value) {
       this.topicList.push(value);
+    } else {
+      this.search();
     }
     event.chipInput!.clear();
   }
@@ -42,17 +44,11 @@ export class SearchBarComponent implements OnInit {
   search(): void {
     // Send request to backend - will configure when design is done
     const query = this.buildQuery(this.topicList);
-    this.http.get('http://127.0.0.1:5000/search/' + query).subscribe(
-      data => {
-        console.log(data);
-      }
-    )
-
-
-
-    const results : Result[] = [];
-
-    this.sendResults.emit(results);
+    this.http.get<Result>('http://127.0.0.1:5000/search/' + query)
+    .subscribe(data => {
+      console.log(data);
+      this.sendResults.emit(data)
+    })
   }
 
   showAdvancedSearch(): void {

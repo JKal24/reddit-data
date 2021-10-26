@@ -2,9 +2,9 @@
     <app-header></app-header>
     <hr>
     <app-search-bar (sendResults)="storeResults($event)"></app-search-bar>
-    <app-search-results *ngFor="let searchResult of results" [result]="searchResult">
-        <h2>{{searchResult.title}}</h2>
-        <h3>{{searchResult.content}}</h3>
-        <h4>{{searchResult.numComments}}, {{searchResult.numUpvotes}}</h4>
+    <app-search-results *ngFor="let post of posts">
+        <h2>{{post.name}}</h2>
+        <h3>{{post.text}}</h3>
+        <h4>{{post.url}}, {{post.score}}</h4>
     </app-search-results>
 </div>

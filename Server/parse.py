@@ -1,8 +1,6 @@
 import reddit
 from enum import Enum
-
 import utility
-from utility import increment_entry, average
 
 all_subreddits = reddit.reddit.subreddit("all")
 
@@ -10,7 +8,7 @@ all_subreddits = reddit.reddit.subreddit("all")
 def parse_query(query, parse_type):
     names = {}
     for content in all_subreddits.search(query):
-        increment_entry(names, content.subreddit.display_name)
+        utility.increment_entry(names, content.subreddit.display_name)
     return parse_subreddit(names, query, parse_type)
 
 
@@ -31,9 +29,9 @@ def parse_subreddit(names, query, parse_type):
         threads_seen = 0
 
         for subreddit_content in reddit.reddit.subreddit(key).search(query):
-            average_score = average(average_score, subreddit_content.score, threads_seen)
-            average_comments = average(average_comments, subreddit_content.num_comments, threads_seen)
-            average_likability = average(average_likability, subreddit_content.upvote_ratio, threads_seen)
+            average_score = utility.average(average_score, subreddit_content.score, threads_seen)
+            average_comments = utility.average(average_comments, subreddit_content.num_comments, threads_seen)
+            average_likability = utility.average(average_likability, subreddit_content.upvote_ratio, threads_seen)
             threads_seen += 1
 
         if parse_type == ParseType.IMAGE:
@@ -103,7 +101,8 @@ def parse_subreddit(names, query, parse_type):
         raise ProcessingException("Found no data for the given query")
 
     filter_posts = sorted(filter_posts, key=lambda item: (item["upvotes"], item["comments"]))
-    for top in range(25):
+    min_range = min(25, len(filter_posts))
+    for top in range(min_range):
         submission = reddit.reddit.submission(filter_posts[top]["id"])
         top_posts.append({
             "author": str(submission.author),

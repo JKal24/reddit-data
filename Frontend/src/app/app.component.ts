@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Result } from './result.model';
+import { Post } from './search-bar/post.model';
+import { Result } from './search-bar/result.model';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,16 @@ import { Result } from './result.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  results: Result[] = [];
+  posts: Post[] = [];
+  subreddits: string[] = [];
 
   constructor() {
   }
   
-  storeResults(result: Result[]) : void {
-    this.results = result;
+  storeResults(result: Result) : void {
+    console.log(result);
+    this.posts = result.top_posts;
+    this.subreddits = result.top_subreddits;
   }
 
 }
