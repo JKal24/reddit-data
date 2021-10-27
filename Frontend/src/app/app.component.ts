@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Post } from './search-bar/post.model';
 import { Result } from './search-bar/result.model';
 
@@ -10,14 +10,15 @@ import { Result } from './search-bar/result.model';
 export class AppComponent {
   posts: Post[] = [];
   subreddits: string[] = [];
+  title: string = '';
 
   constructor() {
   }
   
   storeResults(result: Result) : void {
-    console.log(result);
-    this.posts = result.top_posts;
-    this.subreddits = result.top_subreddits;
+    this.posts = (result.top_posts);
+    this.subreddits = (result.top_subreddits);
+    this.title = "Search Results for '" +  result.query + "'";
   }
 
 }

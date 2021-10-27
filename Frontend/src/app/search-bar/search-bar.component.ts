@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Result } from './result.model';
-import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-search-bar',
@@ -21,6 +20,8 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  // Basic add & remove functions for search queries
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -41,15 +42,23 @@ export class SearchBarComponent implements OnInit {
     }
   }
 
+  /**
+   * Sends a request to the backend
+   * 
+   * returns the post & subreddit data
+   * also includes the query string to be used as a title
+   */
+
   search(): void {
-    // Send request to backend - will configure when design is done
     const query = this.buildQuery(this.topicList);
     this.http.get<Result>('http://127.0.0.1:5000/search/' + query)
     .subscribe(data => {
-      console.log(data);
+      data.query = query;
       this.sendResults.emit(data)
     })
   }
+
+  // Advanced search functionality
 
   showAdvancedSearch(): void {
     this.advancedDisplayable = true;

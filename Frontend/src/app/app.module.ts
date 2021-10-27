@@ -12,10 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
-import { SearchItemComponent } from './search-results/search-item/search-item.component';
 import { ButtonSelectDirective } from './search-bar/advanced/button-select.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { PostComponent } from './post/post.component';
+import { SubredditComponent } from './subreddit/subreddit.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     SearchBarComponent,
     AdvancedComponent,
     HeaderComponent,
-    SearchResultsComponent,
-    SearchItemComponent,
-    ButtonSelectDirective
+    ButtonSelectDirective,
+    PostComponent,
+    SubredditComponent
   ],
   imports: [
     BrowserModule,
