@@ -2,3 +2,9 @@
     height: 100%;
     background-color: aliceblue;
 }
+
+.title {
+    text-align: center;
+    font-weight: normal;
+    margin: 2px;
+}

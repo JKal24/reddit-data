@@ -1,0 +1,35 @@
+.post-container {
+    width: 100%;
+    padding-right: 2.75rem;
+    padding-left: 2.75rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.post-header, .post-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+@media (min-width: 1400px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 768px) {
+
+}
+
+
+@media (min-width: 576px) {
+
+}

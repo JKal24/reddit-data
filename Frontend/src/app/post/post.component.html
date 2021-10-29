@@ -1,4 +1,11 @@
-<h4>{{post.name}} by {{post.author}} {{post.time}}</h4>
-<h6>{{post.url}}</h6>
-<p>{{post.text}}</p>
-<h6>{{post.attached_url === post.url ? '' : post.attached_url}} {{post.score}}</h6>
+<div class="post-container">
+    <div class="post-header">
+        <h4>{{post.name}} by '{{post.author}}'</h4>
+        <h5>Score: {{post.score}}</h5>
+    </div>
+    <p>{{post.text}}</p>
+    <div class="post-footer">
+        <h5>{{post.url}}</h5>
+        <h5>{{post.time}}</h5>
+    </div>
+</div>

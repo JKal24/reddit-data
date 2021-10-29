@@ -2,7 +2,7 @@
     <app-header></app-header>
     <hr>
     <app-search-bar (sendResults)="storeResults($event)"></app-search-bar>
-    <h2>{{title}}</h2>
+    <h2 class="title">{{title}}</h2>
     <app-post *ngFor="let post of posts" [post]="post"></app-post>
     <app-subreddit *ngFor="let subreddit of subreddits" [subreddit]="subreddit"></app-subreddit>
 </div>
