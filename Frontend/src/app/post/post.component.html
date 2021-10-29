@@ -1,1 +1,4 @@
-<h2>{{post.author}}</h2>
+<h4>{{post.name}} by {{post.author}} {{post.time}}</h4>
+<h6>{{post.url}}</h6>
+<p>{{post.text}}</p>
+<h6>{{post.attached_url === post.url ? '' : post.attached_url}} {{post.score}}</h6>
