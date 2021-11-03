@@ -19,6 +19,7 @@ export class AdvancedComponent implements OnInit {
   @Output() sendCommentLimit : EventEmitter<number> = new EventEmitter<number>();
   @Output() sendNSFW : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendEntryLimit : EventEmitter<number> = new EventEmitter<number>();
+  @Output() sendNotTopics : EventEmitter<String[]> = new EventEmitter<String[]>();
 
   constructor() { }
 

@@ -8,3 +8,25 @@
     font-weight: normal;
     margin: 2px;
 }
+
+.subreddit-item {
+    border: 1px solid rgb(45, 45, 45);
+}
+
+.subreddit-container {
+    background-color: white;
+    width: 100%;
+    padding: 0.5rem 1rem;
+}
+.subreddit-list {
+    background-color: rgb(200, 200, 200);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.title {
+    text-align: center;
+    font-size: large;
+    background-color: rgb(200, 200, 200);
+}

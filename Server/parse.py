@@ -42,7 +42,7 @@ def parse_subreddit(names, query, parse_type):
             subreddit_url = subreddit_content.url
             subreddit_self = subreddit_content.is_self
 
-            if parse_type == ParseType.IMAGE:
+            if parse_type == ParseType.IMAGE.value:
                 if (
                         subreddit_comments > average_comments and
                         subreddit_score > average_score and
@@ -56,7 +56,7 @@ def parse_subreddit(names, query, parse_type):
                             "comments": subreddit_comments
                         })
 
-            elif parse_type == ParseType.MEDIA:
+            elif parse_type == ParseType.MEDIA.value:
                 if (
                         subreddit_comments > average_comments and
                         subreddit_score > average_score and
@@ -71,7 +71,7 @@ def parse_subreddit(names, query, parse_type):
                         "comments": subreddit_comments
                     })
 
-            elif parse_type == ParseType.TEXT:
+            elif parse_type == ParseType.TEXT.value:
                 if (
                         subreddit_self and
                         subreddit_comments > average_comments and
@@ -88,7 +88,10 @@ def parse_subreddit(names, query, parse_type):
         top_five -= 1
 
     if len(filter_posts) == 0:
-        raise ProcessingException("Found no data for the given query")
+        return {
+            'top_subreddits': [],
+            'top_posts': []
+        }
 
     filter_posts = sorted(filter_posts, key=lambda item: (item["upvotes"], item["comments"]))
     min_range = min(25, len(filter_posts))
@@ -110,11 +113,7 @@ def parse_subreddit(names, query, parse_type):
     }
 
 
-class ProcessingException(Exception):
-    pass
-
-
 class ParseType(Enum):
-    TEXT = 1,
-    IMAGE = 2,
+    TEXT = 1
+    IMAGE = 2
     MEDIA = 3

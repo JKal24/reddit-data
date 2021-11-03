@@ -8,6 +8,7 @@ import { Post } from '../search-bar/post.model';
 })
 export class PostComponent implements OnInit {
   @Input() post: Post = new Post();
+  expand: boolean = false;
 
   constructor() { }
 

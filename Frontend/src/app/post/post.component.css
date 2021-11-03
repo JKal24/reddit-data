@@ -1,4 +1,5 @@
 .post-container {
+    background-color: rgb(210, 210, 210);
     width: 100%;
     padding-right: 2.75rem;
     padding-left: 2.75rem;
@@ -11,6 +12,17 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    border: 1px solid rgb(25, 25, 25);
+}
+
+.text-filter {
+    color: blue;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 @media (min-width: 1400px) {

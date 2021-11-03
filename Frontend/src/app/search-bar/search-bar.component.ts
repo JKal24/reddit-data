@@ -1,6 +1,6 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Result } from './result.model';
 
@@ -92,7 +92,16 @@ export class SearchBarComponent implements OnInit {
       queryString += topicList[i];
       queryString += ' AND ';
     }
-    return queryString + topicList[i];
+    queryString += topicList[i];
+    queryString += ' ';
+
+
+    if (!this.advancedAttributes.allowNSFW) {
+      queryString += 'nsfw:no' 
+      queryString += ' ';
+    }
+
+    return queryString; 
   }
 
 }
