@@ -9,10 +9,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config.from_mapping(SECRET_KEY=os.urandom(24))
 
 
-@app.route('/search/<string:query>', methods=["GET"])
+@app.route('/search/<string:query>/<int:comment_limit>/<int:upvote_limit>/<int:entries_limit>', methods=["GET"])
 @cross_origin()
-def gather_data(query):
-    data = parse.parse_query(query, 1)
+def gather_data(query, comment_limit, upvote_limit, entries_limit):
+    data = parse.parse_query(query, comment_limit, upvote_limit, entries_limit)
     json_query = jsonify(data)
     return json_query
 

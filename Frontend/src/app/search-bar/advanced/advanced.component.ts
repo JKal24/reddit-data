@@ -32,6 +32,7 @@ export class AdvancedComponent implements OnInit {
       this.notTopicList.push(value);
     }
     event.chipInput!.clear();
+    this.changeNotTopics();
   }
 
   remove(topic: String): void {
@@ -40,6 +41,7 @@ export class AdvancedComponent implements OnInit {
     if (index >= 0) {
       this.notTopicList.splice(index, 1);
     }
+    this.changeNotTopics();
   }
 
   changeUpvoteLimit(event: KeyboardEvent) {
@@ -57,5 +59,9 @@ export class AdvancedComponent implements OnInit {
 
   changeEntryLimit(entryLimit: number) {
     this.sendEntryLimit.emit(entryLimit);
+  }
+
+  changeNotTopics() {
+    this.sendNotTopics.emit(this.notTopicList);
   }
 }

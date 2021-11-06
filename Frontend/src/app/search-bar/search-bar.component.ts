@@ -13,6 +13,7 @@ export class SearchBarComponent implements OnInit {
   advancedDisplayable = false;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   topicList: String[] = [];
+  notTopics : String[] = [];
   advancedAttributes = {commentLimit : Infinity, upvoteLimit : Infinity, allowNSFW : false, entriesLimit : 25};
   @Output() sendResults = new EventEmitter<Result>();
 
@@ -50,8 +51,12 @@ export class SearchBarComponent implements OnInit {
    */
 
   search(): void {
-    const query = this.buildQuery(this.topicList);
-    this.http.get<Result>('http://127.0.0.1:5000/search/' + query)
+    if (this.topicList.length < 1) return
+    const query = this.buildQuery();
+    this.http.get<Result>('http://127.0.0.1:5000/search/' + query + '/' + 
+    this.advancedAttributes.commentLimit.toString() + '/' + 
+    this.advancedAttributes.upvoteLimit.toString() + '/' + 
+    this.advancedAttributes.entriesLimit.toString())
     .subscribe(data => {
       data.query = query;
       this.sendResults.emit(data)
@@ -84,17 +89,19 @@ export class SearchBarComponent implements OnInit {
     this.advancedAttributes.entriesLimit = entriesLimit;
   }
 
-  buildQuery(topicList: String[]) {
+  storeNotTopics(notTopics : String[]) : void {
+    this.notTopics = notTopics;
+  }
+
+  buildQuery() {
     let queryString = '';
 
-    let i;
-    for (i = 0; i < topicList.length - 1; i++) {
-      queryString += topicList[i];
-      queryString += ' AND ';
-    }
-    queryString += topicList[i];
-    queryString += ' ';
+    queryString += this.filterTopics(this.topicList);
 
+    if (this.notTopics.length > 0) {
+      queryString += 'NOT '
+      queryString += this.filterTopics(this.notTopics);
+    }
 
     if (!this.advancedAttributes.allowNSFW) {
       queryString += 'nsfw:no' 
@@ -102,6 +109,17 @@ export class SearchBarComponent implements OnInit {
     }
 
     return queryString; 
+  }
+
+  filterTopics(topicList: String[]) : String {
+    let returnString = '(';
+    let i;
+    for (i = 0; i < topicList.length - 1; i++) {
+      returnString += topicList[i];
+      returnString += ' AND ';
+    }
+    returnString += topicList[i];
+    return returnString + ') ';
   }
 
 }
