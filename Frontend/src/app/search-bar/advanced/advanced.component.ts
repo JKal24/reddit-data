@@ -12,56 +12,60 @@ export class AdvancedComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   notTopicList: String[] = [];
+
   entriesSearched = [10, 25, 50, 100];
+  entryLimit : Number = Number.MAX_SAFE_INTEGER;
+  upvoteLimit : Number= Number.MAX_SAFE_INTEGER;
+  commentLimit : Number= Number.MAX_SAFE_INTEGER;
+
   NSFWflag : boolean = false;
+  subreddit: String = '';
   
   @Output() sendUpvoteLimit : EventEmitter<number> = new EventEmitter<number>();
   @Output() sendCommentLimit : EventEmitter<number> = new EventEmitter<number>();
   @Output() sendNSFW : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendEntryLimit : EventEmitter<number> = new EventEmitter<number>();
   @Output() sendNotTopics : EventEmitter<String[]> = new EventEmitter<String[]>();
+  @Output() sendSubredditFilters : EventEmitter<String[]> = new EventEmitter<String[]>();
 
   constructor() { }
 
   ngOnInit(): void { }
 
-  add(event: MatChipInputEvent): void {
+  addNotTopic(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
     if (value) {
       this.notTopicList.push(value);
     }
     event.chipInput!.clear();
-    this.changeNotTopics();
   }
 
-  remove(topic: String): void {
+  removeNotTopic(topic: String): void {
     const index = this.notTopicList.indexOf(topic);
 
     if (index >= 0) {
       this.notTopicList.splice(index, 1);
     }
-    this.changeNotTopics();
+  }
+
+  changeSubreddit(event: KeyboardEvent): void {
+    this.subreddit = ((event.target as HTMLInputElement).value).trim();
   }
 
   changeUpvoteLimit(event: KeyboardEvent) {
-    this.sendUpvoteLimit.emit(parseInt((event.target as HTMLInputElement).value));
+    this.upvoteLimit = parseInt((event.target as HTMLInputElement).value);
   }
 
   changeCommentLimit(event: KeyboardEvent) {
-    this.sendCommentLimit.emit(parseInt((event.target as HTMLInputElement).value));
+    this.commentLimit = parseInt((event.target as HTMLInputElement).value);
+  }
+
+  changeEntryLimit(entryLimit: number) {
+    this.entryLimit = entryLimit;
   }
 
   changeNSFW() {
     this.NSFWflag = !this.NSFWflag;
-    this.sendNSFW.emit(this.NSFWflag);
-  }
-
-  changeEntryLimit(entryLimit: number) {
-    this.sendEntryLimit.emit(entryLimit);
-  }
-
-  changeNotTopics() {
-    this.sendNotTopics.emit(this.notTopicList);
   }
 }

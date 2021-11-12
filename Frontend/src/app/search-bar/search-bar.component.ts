@@ -1,8 +1,9 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Result } from './result.model';
+import { SearchService } from './search.service';
+import { AdvancedComponent } from './advanced/advanced.component';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,12 +13,13 @@ import { Result } from './result.model';
 export class SearchBarComponent implements OnInit {
   advancedDisplayable = false;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
+  @ViewChild(AdvancedComponent) advancedComponent !: AdvancedComponent;
   topicList: String[] = [];
-  notTopics : String[] = [];
-  advancedAttributes = {commentLimit : Infinity, upvoteLimit : Infinity, allowNSFW : false, entriesLimit : 25};
+
   @Output() sendResults = new EventEmitter<Result>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private searchService : SearchService) { }
 
   ngOnInit(): void {
   }
@@ -51,12 +53,15 @@ export class SearchBarComponent implements OnInit {
    */
 
   search(): void {
+    console.log(this.advancedComponent)
     if (this.topicList.length < 1) return
-    const query = this.buildQuery();
-    this.http.get<Result>('http://127.0.0.1:5000/search/' + query + '/' + 
-    this.advancedAttributes.commentLimit.toString() + '/' + 
-    this.advancedAttributes.upvoteLimit.toString() + '/' + 
-    this.advancedAttributes.entriesLimit.toString())
+    let query = this.buildQuery();
+    query = query + '/' + 
+    this.advancedComponent.commentLimit.toString() + '/' + 
+    this.advancedComponent.upvoteLimit.toString() + '/' + 
+    this.advancedComponent.entryLimit.toString();
+
+    this.searchService.sendSearchRequest(query)
     .subscribe(data => {
       data.query = query;
       this.sendResults.emit(data)
@@ -73,37 +78,17 @@ export class SearchBarComponent implements OnInit {
     this.advancedDisplayable = false;
   }
 
-  storeUpvoteLimit(upvoteLimit : number) : void {
-    this.advancedAttributes.upvoteLimit = upvoteLimit;
-  }
-
-  storeCommentLimit(commentLimit : number) : void {
-    this.advancedAttributes.commentLimit = commentLimit;
-  }
-
-  storeNSFWFlag(NSFWflag : boolean) : void {
-    this.advancedAttributes.allowNSFW = NSFWflag;
-  }
-
-  storeEntryLimit(entriesLimit : number) : void {
-    this.advancedAttributes.entriesLimit = entriesLimit;
-  }
-
-  storeNotTopics(notTopics : String[]) : void {
-    this.notTopics = notTopics;
-  }
-
   buildQuery() {
     let queryString = '';
 
     queryString += this.filterTopics(this.topicList);
 
-    if (this.notTopics.length > 0) {
+    if (this.advancedComponent.notTopicList.length > 0) {
       queryString += 'NOT '
-      queryString += this.filterTopics(this.notTopics);
+      queryString += this.filterTopics(this.advancedComponent.notTopicList);
     }
 
-    if (!this.advancedAttributes.allowNSFW) {
+    if (!this.advancedComponent.NSFWflag) {
       queryString += 'nsfw:no' 
       queryString += ' ';
     }

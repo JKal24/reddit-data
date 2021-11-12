@@ -1,20 +1,40 @@
 <div class="row">
     <mat-form-field class="exclude-topics-form">
         <mat-label>Exclude Topics</mat-label>
-        <mat-chip-list #chipList aria-label="Topic deselection">
+        <mat-chip-list #chipListTopics aria-label="Topic deselection">
             <mat-chip *ngFor="let notTopic of notTopicList" class="not-topic-element">
                 {{notTopic}}
-                <button mat-icon-button class="close-button" (click)="remove(notTopic)">
+                <button mat-icon-button class="close-button" (click)="removeNotTopic(notTopic)">
                     <mat-icon>cancel</mat-icon>
                 </button>
             </mat-chip>
-            <input placeholder="Remove..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+            <input placeholder="Remove..." [matChipInputFor]="chipListTopics"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addNotTopic($event)">
         </mat-chip-list>
     </mat-form-field>
 </div>
 
 <div class="row">
+    <div class="col-sm-6">
+        <div class="row justify-content-between filter">
+            <div class="col-lg-4">
+                Content Filter
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+
+        <div class="row justify-content-between filter">
+            <div class="col-lg-4">
+                Subreddit Filter
+            </div>
+            <div class="col-lg-4">
+                <input type="text" placeholder="Enter subreddit..." (keyup)="changeSubreddit($event)">
+            </div>
+        </div>
+    </div>
+
     <div class="col-sm-6">
         <div class="row justify-content-between filter">
             <div class="col-lg-4">
@@ -33,7 +53,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-sm-6">
         <div class="row justify-content-between filter">
             <div class="col-lg-4" style="display: flex; align-items: center;">
@@ -41,7 +61,8 @@
             </div>
             <div class="col-lg-4">
                 <div class="btn-group" role="group">
-                    <button class="btn btn-secondary btn-select" *ngFor="let entryLimit of entriesSearched" (click)="changeEntryLimit(entryLimit)">{{entryLimit}}</button>
+                    <button class="btn btn-secondary btn-select" *ngFor="let entryLimit of entriesSearched"
+                        (click)="changeEntryLimit(entryLimit)">{{entryLimit}}</button>
                 </div>
             </div>
         </div>
@@ -54,5 +75,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>
