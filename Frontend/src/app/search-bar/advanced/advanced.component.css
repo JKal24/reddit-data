@@ -12,6 +12,16 @@
     padding-bottom: 1rem;
 }
 
+.type-select {
+    display: inline-flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.type {
+    padding-right: 0.5rem;
+}
+
 @media (max-width: 1200px) {
 
 }

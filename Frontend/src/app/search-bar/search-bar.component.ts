@@ -4,6 +4,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Result } from './result.model';
 import { SearchService } from './search.service';
 import { AdvancedComponent } from './advanced/advanced.component';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,11 +16,12 @@ export class SearchBarComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   @ViewChild(AdvancedComponent) advancedComponent !: AdvancedComponent;
-  topicList: String[] = [];
+  topicList: String[] = this.dataService.topicList;
 
   @Output() sendResults = new EventEmitter<Result>();
 
-  constructor(private searchService : SearchService) { }
+  constructor(private searchService: SearchService,
+    private dataService: DataService) { }
 
   ngOnInit(): void {
   }
@@ -27,10 +29,10 @@ export class SearchBarComponent implements OnInit {
   // Basic add & remove functions for search queries
 
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = event.value;
 
     if (value) {
-      this.topicList.push(value);
+      this.dataService.addTopic(value.trim());
     } else {
       this.search();
     }
@@ -53,19 +55,8 @@ export class SearchBarComponent implements OnInit {
    */
 
   search(): void {
-    console.log(this.advancedComponent)
-    if (this.topicList.length < 1) return
-    let query = this.buildQuery();
-    query = query + '/' + 
-    this.advancedComponent.commentLimit.toString() + '/' + 
-    this.advancedComponent.upvoteLimit.toString() + '/' + 
-    this.advancedComponent.entryLimit.toString();
-
-    this.searchService.sendSearchRequest(query)
-    .subscribe(data => {
-      data.query = query;
-      this.sendResults.emit(data)
-    })
+    this.searchService.search();
+    this.sendResults.emit(this.searchService.result);
   }
 
   // Advanced search functionality
@@ -76,35 +67,6 @@ export class SearchBarComponent implements OnInit {
 
   closeAdvancedSearch(): void {
     this.advancedDisplayable = false;
-  }
-
-  buildQuery() {
-    let queryString = '';
-
-    queryString += this.filterTopics(this.topicList);
-
-    if (this.advancedComponent.notTopicList.length > 0) {
-      queryString += 'NOT '
-      queryString += this.filterTopics(this.advancedComponent.notTopicList);
-    }
-
-    if (!this.advancedComponent.NSFWflag) {
-      queryString += 'nsfw:no' 
-      queryString += ' ';
-    }
-
-    return queryString; 
-  }
-
-  filterTopics(topicList: String[]) : String {
-    let returnString = '(';
-    let i;
-    for (i = 0; i < topicList.length - 1; i++) {
-      returnString += topicList[i];
-      returnString += ' AND ';
-    }
-    returnString += topicList[i];
-    return returnString + ') ';
   }
 
 }

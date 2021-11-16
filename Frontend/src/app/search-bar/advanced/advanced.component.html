@@ -19,23 +19,13 @@
     <div class="col-sm-6">
         <div class="row justify-content-between filter">
             <div class="col-lg-4">
-                Content Filter
-            </div>
-            <div class="col-lg-2">
-            </div>
-        </div>
-
-        <div class="row justify-content-between filter">
-            <div class="col-lg-4">
                 Subreddit Filter
             </div>
             <div class="col-lg-4">
                 <input type="text" placeholder="Enter subreddit..." (keyup)="changeSubreddit($event)">
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-6">
         <div class="row justify-content-between filter">
             <div class="col-lg-4">
                 Minimum Number of Comments
@@ -55,6 +45,19 @@
     </div>
 
     <div class="col-sm-6">
+        <div class="row justify-content-between filter">
+            <div class="col-lg-2">
+                Content Filter
+            </div>
+            <div class="col-lg-4">
+                <mat-radio-group name="search-type" class="type-select">
+                    <mat-radio-button value="all" class="type" (change)="changeType($event)">All</mat-radio-button>
+                    <mat-radio-button value="text" class="type" (change)="changeType($event)">Text</mat-radio-button>
+                    <mat-radio-button value="media" class="type" (change)="changeType($event)">Media</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+
         <div class="row justify-content-between filter">
             <div class="col-lg-4" style="display: flex; align-items: center;">
                 Number of Entries Searched

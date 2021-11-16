@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Post } from './search-bar/post.model';
 import { Result } from './search-bar/result.model';
+import { SearchService } from './search-bar/search.service';
 
 @Component({
   selector: 'app-root',
