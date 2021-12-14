@@ -7,7 +7,7 @@ import { Result } from './result.model';
 @Injectable({ providedIn: 'root' })
 export class SearchService {
 
-    result?: Result;
+    query?: string;
 
     constructor(private http: HttpClient,
         private dataService: DataService) { }
@@ -23,8 +23,8 @@ export class SearchService {
  * also includes the query string to be used as a title
  */
 
-    search(): void {
-        if (this.dataService.topicList.length < 1) return;
+    search(): Observable<Result> {
+        if (this.dataService.topicList.length < 1) return new Observable<Result>();
         let query = this.buildQuery();
 
         query = query + '/' +
@@ -34,11 +34,9 @@ export class SearchService {
             this.dataService.entryLimit.toString();
 
         // Uses service to send HTTP request
-        this.sendSearchRequest(query)
-            .subscribe(data => {
-                data.query = query;
-                this.result = data;
-            })
+        this.query = query;
+        return this.sendSearchRequest(query);
+            
     }
 
     buildQuery() {

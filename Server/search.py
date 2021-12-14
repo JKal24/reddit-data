@@ -19,7 +19,7 @@ def parse_subreddits(query, comment_limit, upvote_limit, entries_limit):
         if value == 1 or top_five <= 0:
             break
 
-        build_posts(query, key, upvote_limit, comment_limit);
+        build_posts(query, key, posts, upvote_limit, comment_limit)
 
         top_subreddits.append(key)
         top_five -= 1
@@ -62,8 +62,9 @@ def build_posts(query, name, posts, upvote_limit, comment_limit):
         average_likability = utility.average(average_likability, subreddit_content.upvote_ratio, threads_seen)
         threads_seen += 1
 
-    average_score = max(average_score, upvote_limit);
-    average_comments = max(average_comments, comment_limit);
+    average_score = max(average_score / 3, upvote_limit)
+    average_comments = max(average_comments / 3, comment_limit)
+    average_likability = average_likability / 3
 
     for subreddit_content in reddit.reddit.subreddit(name).search(query):
         subreddit_score = subreddit_content.score
@@ -84,9 +85,9 @@ def build_posts(query, name, posts, upvote_limit, comment_limit):
 
 
 def filter_posts(posts, entries_limit):
-    top_posts = [];
+    top_posts = []
 
-    posts = sorted(posts, key=lambda item: (item["upvotes"], item["comments"]))
+    posts = sorted(posts, key=lambda item: (item["upvotes"], item["comments"]), reverse=True)
     min_range = min(25, len(posts), entries_limit)
     for top in range(min_range):
         submission = reddit.reddit.submission(posts[top]["id"])

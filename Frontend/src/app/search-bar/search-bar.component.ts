@@ -5,6 +5,7 @@ import { Result } from './result.model';
 import { SearchService } from './search.service';
 import { AdvancedComponent } from './advanced/advanced.component';
 import { DataService } from './data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -55,8 +56,11 @@ export class SearchBarComponent implements OnInit {
    */
 
   search(): void {
-    this.searchService.search();
-    this.sendResults.emit(this.searchService.result);
+    const resultObservable = this.searchService.search().subscribe(data => {
+      data.query = this.searchService.query || "";
+      this.sendResults.emit(data)
+    });
+    
   }
 
   // Advanced search functionality
