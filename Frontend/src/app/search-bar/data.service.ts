@@ -3,7 +3,7 @@ export class DataService {
     notTopicList: String[] = [];
 
     entriesSearched = [10, 25, 50, 100];
-    entryLimit: Number = 0;
+    entryLimit: Number = 25;
     upvoteLimit: Number = 0;
     commentLimit: Number = 0;
 

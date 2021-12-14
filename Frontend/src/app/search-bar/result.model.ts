@@ -3,7 +3,7 @@ import { Post } from "./post.model";
 export class Result {
     top_posts: Post[] = [];
     top_subreddits: string[] = [];
-    query: string = '';
+    query: string | undefined;
 
     constructor(top_posts: Post[], top_subreddits: string[]) {
         this.top_posts = top_posts;
