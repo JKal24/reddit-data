@@ -1,14 +1,16 @@
 <div class="post-container">
+    <h5>Posted by '{{post.author}}' at {{post.time}}</h5>
     <div class="post-header">
-        <h4>{{post.name}} by '{{post.author}}'</h4>
-        <h5>Score: {{post.score}}</h5>
+        <a href={{post.url}}>
+            <h2 class="post">{{post.name}}</h2>
+        </a>
+        <h5 class="post">Score: {{post.score}}</h5>
     </div>
     <div class="post-body">
-        <p *ngIf="!expand">{{post.text.substring(0, 150)}}<button class="text-filter" (click)="expand = !expand">Continue reading...</button></p>
-        <p *ngIf="expand">{{post.text}}<button class="expand-text" (click)="expand = !expand">See less...</button></p>
-    </div>
-    <div class="post-footer">
-        <h5>{{post.url}}</h5>
-        <h5>{{post.time}}</h5>
+        <img src={{post.attached_url}} *ngIf="post.text.length == 0; else text"/>
+        <ng-template #text>
+            <p class="post" *ngIf="!expand">{{post.text.substring(0, 150)}}<button class="text-filter" (click)="expand = !expand">Continue reading...</button></p>
+            <p class="post" *ngIf="expand">{{post.text}}<button class="expand-text" (click)="expand = !expand">See less...</button></p>
+        </ng-template>
     </div>
 </div>

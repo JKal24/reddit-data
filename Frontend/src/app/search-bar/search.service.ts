@@ -34,7 +34,7 @@ export class SearchService {
             this.dataService.entryLimit.toString();
 
         // Uses service to send HTTP request
-        this.query = query;
+        this.query = this.title();
         return this.sendSearchRequest(query);
             
     }
@@ -69,5 +69,15 @@ export class SearchService {
         }
         returnString += topicList[i];
         return returnString + ') ';
+    }
+
+    title(): string {
+        let titleString = '';
+        let topics = this.dataService.topicList;
+
+        for (let i = 0; i < topics.length; i++) {
+            titleString += topics[i];
+        }
+        return titleString;
     }
 }
