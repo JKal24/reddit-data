@@ -16,7 +16,6 @@ import { HeaderComponent } from './header/header.component';
 import { ButtonSelectDirective } from './search-bar/advanced/button-select.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { PostComponent } from './post/post.component';
-import { SubredditComponent } from './subreddit/subreddit.component';
 import { DataService } from './search-bar/data.service';
 
 @NgModule({
@@ -26,8 +25,7 @@ import { DataService } from './search-bar/data.service';
     AdvancedComponent,
     HeaderComponent,
     ButtonSelectDirective,
-    PostComponent,
-    SubredditComponent
+    PostComponent
   ],
   imports: [
     BrowserModule,

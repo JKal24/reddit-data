@@ -6,27 +6,29 @@
 .title {
     text-align: center;
     font-weight: normal;
+    font-size: large;
     margin: 2px;
 }
 
-.subreddit-item {
+.data {
+    background-color: white;
+}
+
+.topic {
+    padding: 0.5rem 1rem;
+}
+
+.border {
     border: 1px solid rgb(45, 45, 45);
 }
 
 .subreddit-container {
-    background-color: white;
-    width: 100%;
-    padding: 0.5rem 1rem;
-}
-.subreddit-list {
-    background-color: rgb(200, 200, 200);
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-evenly;
 }
 
-.title {
-    text-align: center;
-    font-size: large;
-    background-color: rgb(200, 200, 200);
+.subreddit {
+    padding: 1rem;
+    color: blue;
 }
