@@ -25,10 +25,15 @@
 .subreddit-container {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .subreddit {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    border-left: 1px solid aliceblue;
+    border-right: 1px solid aliceblue;
+    background-color: aliceblue;
     padding: 1rem;
     color: blue;
 }

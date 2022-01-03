@@ -3,11 +3,11 @@
     <hr>
     <app-search-bar (sendResults)="storeResults($event)"></app-search-bar>
     <h2 class="title data">{{title}}</h2>
-    <div class="title topic" *ngIf="subreddits.length >= 1">Related Subreddits</div>
+    <div class="title topic" *ngIf="subreddits.length >= 1"><b>Related Subreddits</b></div>
     <div class="subreddit-container data">
-        <a class="subreddit" *ngFor="let subreddit of subreddits" href="https://reddit.com/r/{{subreddit}}">{{subreddit}}</a>
+        <a class="subreddit" *ngFor="let subreddit of subreddits" href="https://reddit.com/r/{{subreddit}}"><h2>{{subreddit}}</h2></a>
     </div>
-    <div class="title topic" *ngIf="posts.length >= 1">Posts</div>
+    <div class="title topic" *ngIf="posts.length >= 1"><b>Posts</b></div>
     <ul class="list-group">
         <li class="list-group-item data" *ngFor="let post of posts">
             <app-post [post]="post"></app-post>
