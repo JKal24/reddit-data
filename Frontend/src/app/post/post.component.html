@@ -4,13 +4,16 @@
         <a href={{post.url}}>
             <h2 class="post">{{post.name}}</h2>
         </a>
-        <h5 class="post">Score: {{post.score}}</h5>
+        <h4 class="post">Score: {{post.score}}</h4>
     </div>
     <div class="post-body">
-        <img src={{post.attached_url}} *ngIf="post.text.length == 0; else text"/>
+        <img class="post-img" src={{post.attached_url}} *ngIf="post.text.length == 0; else text"/>
         <ng-template #text>
-            <p class="post" *ngIf="!expand">{{post.text.substring(0, 150)}}<button class="text-filter" (click)="expand = !expand">Continue reading...</button></p>
-            <p class="post" *ngIf="expand">{{post.text}}<button class="expand-text" (click)="expand = !expand">See less...</button></p>
+            <p class="post" *ngIf="post.text.length <= 150; else expandContent">{{post.text}}</p>
+            <ng-template #expandContent>
+                <p class="post" *ngIf="!expand">{{post.text.substring(0, 150)}}<button class="text-filter" (click)="expand = !expand">Continue reading...</button></p>
+                <p class="post" *ngIf="expand">{{post.text}}<button class="expand-text" (click)="expand = !expand">See less...</button></p>
+            </ng-template>
         </ng-template>
     </div>
 </div>

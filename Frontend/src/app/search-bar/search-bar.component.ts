@@ -57,7 +57,7 @@ export class SearchBarComponent implements OnInit {
    */
 
   search(): void {
-    
+
     const resultObservable = this.searchService.search().subscribe(data => {
       data.query = this.searchService.query || "";
       this.sendResults.emit(data)
