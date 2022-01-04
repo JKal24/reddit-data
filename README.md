@@ -1,3 +1,3 @@
 # reddit-data
 
-Passively learning Angular
+First Angular project
